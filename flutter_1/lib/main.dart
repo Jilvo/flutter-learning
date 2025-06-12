@@ -14,96 +14,86 @@ class BurgerQueenApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.pinkAccent),
       ),
-      home: const HomeScreen(),
+      home: const HomeScreen(title: 'Burger Queen'),
     );
   }
 }
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  final String title;
+  const HomeScreen({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.pink[100],
-        toolbarHeight: 200,
-        title: Column(
+        title: Text(title),
+        centerTitle: true,
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        leading: const Icon(Icons.restaurant_menu),
+        actions: const [Icon(Icons.person)],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Icon(Icons.fastfood, size: 28),
-                Text(
-                  'Burger Queen',
-                  style: TextStyle(
-                    color: Colors.brown,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22,
+            //Section restaurant le plus proche
+            Container(
+              color: Theme.of(context).colorScheme.inversePrimary,
+              height: 150,
+              child: Center(
+                child: Card(
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 12,
                   ),
-                ),
-                Icon(Icons.account_circle, size: 28),
-              ],
-            ),
-            SizedBox(height: 30), // espacement
-            const Card(
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    Row(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Icon(Icons.location_on, size: 24),
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text(
-                            'Mon restaurant le plus proche',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                        Row(
+                          children: [
+                            const Icon(Icons.location_on),
+                            const Text(
+                              "Mon restaurant le plus proche",
+                              style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                          ),
+                            const Spacer(),
+                            Text(
+                              "4 kms",
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ],
                         ),
-                        Spacer(),
-                        Text("4kms"),
-                      ],
-                    ),
-                    SizedBox(height: 1),
-                    Card(
-                      color: Color.fromRGBO(234, 30, 99, 1),
-                      child: Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Center(
-                          child: Row(
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          margin: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: Colors.pink,
+                          ),
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
-                                Icons.touch_app,
-                                size: 24,
-                                color: Colors.white,
-                              ),
+                              Icon(Icons.touch_app, color: Colors.white),
+                              SizedBox(width: 16),
                               Text(
-                                'Commander',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                ),
+                                "Commander",
+                                style: TextStyle(color: Colors.white),
                               ),
                             ],
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),
           ],
         ),
-      ),
-      body: const Center(
-        child: Text('En ce moment', style: TextStyle(color: Colors.brown)),
       ),
     );
   }
