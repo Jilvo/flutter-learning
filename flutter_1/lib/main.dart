@@ -98,7 +98,6 @@ class HomeScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 sectionTitle(title: "En ce moment", icon: Icons.fastfood),
-                const SizedBox(height: 8),
                 Card(
                   margin: const EdgeInsets.symmetric(
                     horizontal: 24,
@@ -169,23 +168,33 @@ class HomeScreen extends StatelessWidget {
                   child: Row(
                     children: [
                       ChaudDevantSectionCard(
-                        title: "Burger Classique",
-                        description:
-                            "Un burger classique avec de la viande, du fromage et des légumes",
+                        title: "Twins",
+                        description: "Le burger des jumeaux qui font la paire",
                         imagePath: "assets/images/twins.jpg",
                         color: Theme.of(context).colorScheme.inversePrimary,
                       ),
                       ChaudDevantSectionCard(
-                        title: "Burger Végétarien",
+                        title: "Big Queen",
                         description:
-                            "Un burger savoureux sans viande, avec des légumes frais et une galette végétale",
+                            "Pour celles qui portent la couronne à la maison",
                         imagePath: "assets/images/big-queen.jpg",
                         color: Theme.of(context).colorScheme.inversePrimary,
                       ),
                       ChaudDevantSectionCard(
-                        title: "Burger Gourmet",
-                        description:
-                            "Un burger haut de gamme avec des ingrédients raffinés et une sauce spéciale",
+                        title: "Egg Bacon",
+                        description: "Le burger des lève tôt",
+                        imagePath: "assets/images/egg-bacon-burger.jpg",
+                        color: Theme.of(context).colorScheme.inversePrimary,
+                      ),
+                      ChaudDevantSectionCard(
+                        title: "Prince",
+                        description: "Le préféré des futurs rois",
+                        imagePath: "assets/images/prince.jpg",
+                        color: Theme.of(context).colorScheme.inversePrimary,
+                      ),
+                      ChaudDevantSectionCard(
+                        title: "Cheese",
+                        description: "Le classique pour les fans de fromage",
                         imagePath: "assets/images/cheese.jpg",
                         color: Theme.of(context).colorScheme.inversePrimary,
                       ),
@@ -315,18 +324,114 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget LesAccompagnementsSection() {
-    return Text("null");
-  }
-
-  Widget ToucheSucreeSection() {
-    return Text("null");
-  }
-
-  Widget ToucheSucreeSectionCard({
-    required String title,
-    required String imagePath,
-  }) {
-    return Text("null");
+    return Column(
+      children: [
+        Card(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(360),
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/fries.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                width: 100,
+                height: 100,
+              ),
+              Text(
+                "Frites classique",
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.pink,
+                  fontSize: 20,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Card(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(360),
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/patate-douce.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                width: 100,
+                height: 100,
+              ),
+              Text(
+                "Frites de patate douce",
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.pink,
+                  fontSize: 20,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Card(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(360),
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/poutine.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                width: 100,
+                height: 100,
+              ),
+              Text(
+                "Poutine",
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.pink,
+                  fontSize: 20,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Card(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(360),
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/potatoes.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                width: 100,
+                height: 100,
+              ),
+              Text(
+                "Potatoes",
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.pink,
+                  fontSize: 20,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
   Widget UnePetiteSoifSection({Color bgColor = Colors.pink}) {
@@ -384,6 +489,79 @@ class HomeScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     color: Colors.pink,
                     fontSize: 20,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget ToucheSucreeSection() {
+    final List<Map<String, String>> desserts = [
+      {'title': 'Glace Oreo', 'image': 'assets/images/oreo-ice.jpg'},
+      {'title': 'Brownie', 'image': 'assets/images/brownie.jpg'},
+      {'title': 'Donut', 'image': 'assets/images/donut.jpg'},
+      {'title': 'Cupcake', 'image': 'assets/images/cupcake.jpg'},
+      {'title': 'Crêpe Fraise', 'image': 'assets/images/strawberry-waffle.jpg'},
+    ];
+    return GridView.builder(
+      padding: const EdgeInsets.all(12),
+      shrinkWrap: true,
+      physics:
+          NeverScrollableScrollPhysics(), // si tu es dans un SingleChildScrollView
+      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: 200, // largeur max par card
+        mainAxisSpacing: 12,
+        crossAxisSpacing: 12,
+        childAspectRatio: 3 / 4, // largeur / hauteur
+      ),
+      itemCount: desserts.length,
+      itemBuilder: (context, index) {
+        final item = desserts[index];
+        return ToucheSucreeSectionCard(
+          title: item['title'] ?? 'Dessert',
+          imagePath: item['image'] ?? 'assets/images/default-dessert.jpg',
+        );
+      },
+    );
+  }
+
+  Widget ToucheSucreeSectionCard({
+    required String title,
+    required String imagePath,
+  }) {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      clipBehavior: Clip.antiAlias,
+      margin: const EdgeInsets.all(8),
+      child: SizedBox(
+        // width: 180,
+        // height: 300,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Image.asset(imagePath, fit: BoxFit.cover),
+            Align(
+              alignment: Alignment.center,
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Text(
+                      title,
+
+                      textAlign: TextAlign.center,
+
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.pink,
+                        fontSize: 20,
+                      ),
+                    ),
                   ),
                 ),
               ),
