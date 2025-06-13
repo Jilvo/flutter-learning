@@ -172,26 +172,53 @@ class HomeScreen extends StatelessWidget {
                         title: "Burger Classique",
                         description:
                             "Un burger classique avec de la viande, du fromage et des légumes",
-                        image_path: "assets/images/twins.jpg",
+                        imagePath: "assets/images/twins.jpg",
                         color: Theme.of(context).colorScheme.inversePrimary,
                       ),
                       ChaudDevantSectionCard(
                         title: "Burger Végétarien",
                         description:
                             "Un burger savoureux sans viande, avec des légumes frais et une galette végétale",
-                        image_path: "assets/images/big-queen.jpg",
+                        imagePath: "assets/images/big-queen.jpg",
                         color: Theme.of(context).colorScheme.inversePrimary,
                       ),
                       ChaudDevantSectionCard(
                         title: "Burger Gourmet",
                         description:
                             "Un burger haut de gamme avec des ingrédients raffinés et une sauce spéciale",
-                        image_path: "assets/images/cheese.jpg",
+                        imagePath: "assets/images/cheese.jpg",
                         color: Theme.of(context).colorScheme.inversePrimary,
                       ),
                     ],
                   ),
                 ),
+              ],
+            ),
+            // Section Les accompagements
+            Column(
+              children: [
+                sectionTitle(
+                  title: "Les accompagnements",
+                  icon: Icons.room_service,
+                ),
+                LesAccompagnementsSection(),
+              ],
+            ),
+            Column(
+              children: [
+                sectionTitle(
+                  title: "Une petite soif ?",
+                  icon: Icons.local_drink,
+                ),
+                UnePetiteSoifSection(
+                  bgColor: Theme.of(context).colorScheme.inversePrimary,
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                sectionTitle(title: "La touche sucrée", icon: Icons.cookie),
+                ToucheSucreeSection(),
               ],
             ),
           ],
@@ -232,51 +259,131 @@ class HomeScreen extends StatelessWidget {
   Widget ChaudDevantSectionCard({
     required String title,
     required String description,
-    required String image_path,
-    Color color = Colors.white,
+    required String imagePath,
+    Color color = Colors.pinkAccent,
   }) {
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       clipBehavior: Clip.antiAlias,
-      child: SizedBox(
-        height: 300, // ou autre
+      child: Container(
         width: 300,
-        child: Column(
-          children: [
-            SizedBox(
-              width: 300, // ou une valeur fixe
-              height: 200, // ou une valeur fixe
-              child: Image.asset(
-                image_path,
-                fit: BoxFit.cover,
-                width: double.infinity,
+        child: SizedBox(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Image
+              AspectRatio(
+                aspectRatio: 1.2,
+                child: Image.asset(imagePath, fit: BoxFit.cover),
               ),
-            ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
+              // Fond rose avec texte
+              Container(
                 color: color,
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: Center(
-                  child: Column(
-                    children: [
-                      Text(
-                        title,
-                        style: TextStyle(
-                          color: Colors.brown,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 8,
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.brown,
                       ),
-                      Text(
-                        description,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.brown.shade300),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      description,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.brown.shade300,
+                        fontStyle: FontStyle.italic,
                       ),
-                    ],
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget LesAccompagnementsSection() {
+    return Text("null");
+  }
+
+  Widget ToucheSucreeSection() {
+    return Text("null");
+  }
+
+  Widget ToucheSucreeSectionCard({
+    required String title,
+    required String imagePath,
+  }) {
+    return Text("null");
+  }
+
+  Widget UnePetiteSoifSection({Color bgColor = Colors.pink}) {
+    return Card(
+      color: bgColor,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            UnePetiteSoifSectionCard(
+              title: "Le classique",
+              imagePath: "assets/images/classic-cola.jpg",
+            ),
+            UnePetiteSoifSectionCard(
+              title: "Eau gazeuse",
+              imagePath: "assets/images/sparkling.jpg",
+            ),
+            UnePetiteSoifSectionCard(
+              title: "A l'orange",
+              imagePath: "assets/images/orange-soda.jpg",
+            ),
+            UnePetiteSoifSectionCard(
+              title: "A la Fraise",
+              imagePath: "assets/images/strawberry-soda.jpg",
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget UnePetiteSoifSectionCard({
+    required String title,
+    required String imagePath,
+  }) {
+    return Card(
+      margin: const EdgeInsets.all(8),
+      child: SizedBox(
+        width: 180,
+        height: 400,
+        child: Stack(
+          children: [
+            Image.asset(imagePath, fit: BoxFit.cover, height: 500),
+            Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+                child: Text(
+                  title,
+
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.pink,
+                    fontSize: 20,
                   ),
                 ),
               ),
