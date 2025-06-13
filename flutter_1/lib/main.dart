@@ -97,7 +97,7 @@ class HomeScreen extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                sectionTitle(title: "En ce moment",icon: Icons.fastfood),
+                sectionTitle(title: "En ce moment", icon: Icons.fastfood),
                 const SizedBox(height: 8),
                 Card(
                   margin: const EdgeInsets.symmetric(
@@ -159,54 +159,131 @@ class HomeScreen extends StatelessWidget {
             // Section Chaud devant
             Column(
               children: [
-                sectionTitle(title: "Chaud Devant", icon: Icons.local_fire_department),
+                sectionTitle(
+                  title: "Chaud Devant",
+                  icon: Icons.local_fire_department,
+                ),
                 Text("Le meilleur de nos burgers à portée de clic"),
-                Row(
-                  children: [ChaudDevantSectionCard(title:"Burger Classique", description:"Un burger classique avec de la viande, du fromage et des légumes"),
-                    ChaudDevantSectionCard(title:"Burger Végétarien", description:"Un burger savoureux sans viande, avec des légumes frais et une galette végétale"),
-                    ChaudDevantSectionCard(title:"Burger Gourmet", description:"Un burger haut de gamme avec des ingrédients raffinés et une sauce spéciale")
-                ])
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      ChaudDevantSectionCard(
+                        title: "Burger Classique",
+                        description:
+                            "Un burger classique avec de la viande, du fromage et des légumes",
+                        image_path: "assets/images/twins.jpg",
+                        color: Theme.of(context).colorScheme.inversePrimary,
+                      ),
+                      ChaudDevantSectionCard(
+                        title: "Burger Végétarien",
+                        description:
+                            "Un burger savoureux sans viande, avec des légumes frais et une galette végétale",
+                        image_path: "assets/images/big-queen.jpg",
+                        color: Theme.of(context).colorScheme.inversePrimary,
+                      ),
+                      ChaudDevantSectionCard(
+                        title: "Burger Gourmet",
+                        description:
+                            "Un burger haut de gamme avec des ingrédients raffinés et une sauce spéciale",
+                        image_path: "assets/images/cheese.jpg",
+                        color: Theme.of(context).colorScheme.inversePrimary,
+                      ),
+                    ],
+                  ),
+                ),
               ],
-            )
-
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget sectionTitle({required String title,required IconData icon}) {
+  Widget sectionTitle({required String title, required IconData icon}) {
     return Column(
       children: [
         Divider(color: Colors.brown.shade300, indent: 24, endIndent: 24),
         Center(
-          child:
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
 
-          children: [
-            Icon(icon, color: Colors.brown.shade300),
-            Center(
-              child: Text(
-                title,
-                style: TextStyle(
-                  color: Colors.brown,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+            children: [
+              Icon(icon, color: Colors.brown.shade300),
+              Center(
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    color: Colors.brown,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
-            Icon(icon, color: Colors.brown.shade300)
-          ],
-        ),
+              Icon(icon, color: Colors.brown.shade300),
+            ],
+          ),
         ),
         Divider(color: Colors.brown.shade300, indent: 24, endIndent: 24),
       ],
     );
   }
 
-  Widget ChaudDevantSectionCard({required String title, required String description}){
-    return Text(title);
+  Widget ChaudDevantSectionCard({
+    required String title,
+    required String description,
+    required String image_path,
+    Color color = Colors.white,
+  }) {
+    return Card(
+      margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      clipBehavior: Clip.antiAlias,
+      child: SizedBox(
+        height: 300, // ou autre
+        width: 300,
+        child: Column(
+          children: [
+            SizedBox(
+              width: 300, // ou une valeur fixe
+              height: 200, // ou une valeur fixe
+              child: Image.asset(
+                image_path,
+                fit: BoxFit.cover,
+                width: double.infinity,
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                color: color,
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Center(
+                  child: Column(
+                    children: [
+                      Text(
+                        title,
+                        style: TextStyle(
+                          color: Colors.brown,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        description,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.brown.shade300),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
-}
-
