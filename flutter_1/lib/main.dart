@@ -322,115 +322,62 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-
-  Widget LesAccompagnementsSection() {
-    return Column(
+  Widget AccompagnementRow({required String imagePath, required String title}) {
+    return Padding(padding: const EdgeInsets.all(10.0),child:  Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Card(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(360),
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/fries.jpg'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                width: 100,
-                height: 100,
-              ),
-              Text(
-                "Frites classique",
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.pink,
-                  fontSize: 20,
-                ),
-              ),
-            ],
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(360),
+            image: DecorationImage(
+              image: AssetImage(imagePath),
+              fit: BoxFit.cover,
+            ),
           ),
+          width: 100,
+          height: 100,
         ),
-        Card(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(360),
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/patate-douce.jpg'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                width: 100,
-                height: 100,
-              ),
-              Text(
-                "Frites de patate douce",
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.pink,
-                  fontSize: 20,
-                ),
-              ),
-            ],
-          ),
-        ),
-        Card(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(360),
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/poutine.jpg'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                width: 100,
-                height: 100,
-              ),
-              Text(
-                "Poutine",
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.pink,
-                  fontSize: 20,
-                ),
-              ),
-            ],
-          ),
-        ),
-        Card(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(360),
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/potatoes.jpg'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                width: 100,
-                height: 100,
-              ),
-              Text(
-                "Potatoes",
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.pink,
-                  fontSize: 20,
-                ),
-              ),
-            ],
+        Text(
+          title,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.pink,
+            fontSize: 20,
           ),
         ),
       ],
+        ),
+    );
+  }
+  Widget LesAccompagnementsSection() {
+    return Card(
+      // margin: const EdgeInsets.all(10),
+      elevation: 8,
+      // child: Padding(padding: const EdgeInsets.all(10.0)
+       // Ajout d'un padding pour espacer les éléments)
+      child: Column(
+        children: [
+          AccompagnementRow(
+            imagePath: 'assets/images/fries.jpg',
+            title: 'Frites Classiques',
+          ),
+          Divider(height: 10,color: Colors.brown.shade300,thickness: 2),
+          AccompagnementRow(
+            imagePath: 'assets/images/patate-douce.jpg',
+            title: 'Frites de patate douce',
+          ),
+          Divider(height: 10,color: Colors.brown.shade300,thickness: 2),
+          AccompagnementRow(
+            imagePath: 'assets/images/poutine.jpg',
+            title: 'Poutine',
+          ),
+          Divider(height: 10,color: Colors.brown.shade300,thickness: 2),
+          AccompagnementRow(
+            imagePath: 'assets/images/potatoes.jpg',
+            title: 'Potatoes',
+          ),
+        ],
+      ),
     );
   }
 
