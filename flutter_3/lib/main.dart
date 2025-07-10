@@ -34,38 +34,20 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final ImagePicker _picker = ImagePicker();
-  XFile? _photo;  // stocke la photo prise
+  XFile? _photo; // stocke la photo prise
   List<File> _images = []; // liste pour stocker les images
 
   // Ouvre l’appareil photo et met à jour _photo
-  Future<void> _takePhoto() async {
+  Future<void> _pickImage(ImageSource source) async {
     final XFile? picked = await _picker.pickImage(
-      source: ImageSource.camera,
+      source: source,
       maxWidth: 800,
       maxHeight: 600,
       imageQuality: 85,
     );
     if (picked != null) {
-      String path = picked.path;
-      File? file = File(path);
       setState(() {
-        _images.add(file);
-      });
-    }
-  }
-
-  Future<void> _getPhoto() async {
-    final XFile? picked = await _picker.pickImage(
-      source: ImageSource.gallery,
-      maxWidth: 800,
-      maxHeight: 600,
-      imageQuality: 85,
-    );
-    if (picked != null) {
-      String path = picked.path;
-      File? file = File(path);
-      setState(() {
-        _images.add(file);
+        _images.add(File(picked.path));
       });
     }
   }
@@ -81,44 +63,48 @@ class _HomeScreenState extends State<HomeScreen> {
           // Bouton pour prendre une photo
           IconButton(
             icon: const Icon(FontAwesomeIcons.images),
-            onPressed: _getPhoto ,
+            onPressed: () => _pickImage(ImageSource.gallery),
           ),
           IconButton(
             icon: const Icon(FontAwesomeIcons.camera),
-            onPressed: _takePhoto,
-          )
+            onPressed: () => _pickImage(ImageSource.camera),
+          ),
         ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: _images.isNotEmpty
-            ? Expanded(
-          child: ListView.builder(
-            itemCount: _images.length,
-            itemBuilder: (context, index) {
-              return Card(
-                elevation: 4,
-                clipBehavior: Clip.hardEdge,
-                margin: const EdgeInsets.only(bottom: 16),
-                child: Image.file(
-                  _images[index],
-                  width: double.infinity,
-                  height: 250,
-                  fit: BoxFit.cover,
+        child:
+            _images.isNotEmpty
+                ? Column(
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: _images.length,
+                        itemBuilder:
+                            (context, index) => Card(
+                              elevation: 4,
+                              clipBehavior: Clip.hardEdge,
+                              margin: const EdgeInsets.only(bottom: 16),
+                              child: Image.file(
+                                _images[index],
+                                width: double.infinity,
+                                height: 250,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                      ),
+                    ),
+                  ],
+                )
+                : const Center(
+                  child: Card(
+                    elevation: 2,
+                    child: Padding(
+                      padding: EdgeInsets.all(24),
+                      child: Text("Aucune photo pour l'instant"),
+                    ),
+                  ),
                 ),
-              );
-            },
-          ),
-        )
-            : const Center(
-          child: Card(
-            elevation: 2,
-            child: Padding(
-              padding: EdgeInsets.all(24),
-              child: Text("Aucune photo pour l'instant"),
-            ),
-          ),
-        ),
       ),
     );
   }
